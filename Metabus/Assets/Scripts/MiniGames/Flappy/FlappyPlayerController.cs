@@ -43,7 +43,7 @@ public class FlappyPlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
                     // 게임 재시작
-                    flappyGameManager.RestartGame();
+                    flappyGameManager.startGame();
                 }
             }
             else
@@ -92,5 +92,6 @@ public class FlappyPlayerController : MonoBehaviour
         isDead = true;
         deathCooldown = 1f;
         flappyGameManager.GameOver();
+        flappyGameManager.EndMiniGame();
     }
 }

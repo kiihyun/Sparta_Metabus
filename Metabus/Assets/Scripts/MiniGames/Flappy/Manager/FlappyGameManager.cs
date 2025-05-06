@@ -21,7 +21,6 @@ public class FlappyGameManager : MonoBehaviour
     {
         get { return uiManager; }
     }
-
     private void Awake()
     {
         flappyGameManager = this;
@@ -36,14 +35,14 @@ public class FlappyGameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Game Over");
-        uiManager.SetRestart();
+        uiManager.ExitMiniGame();
     }
 
 
-    public void RestartGame()
+    public void startGame()
     {
         SceneManager.LoadScene("MainMapScene");
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 
     public void AddScore(int score)
@@ -51,5 +50,15 @@ public class FlappyGameManager : MonoBehaviour
         currentScore += score;
         uiManager.UpdateScore(currentScore);
         Debug.Log("Score: " + currentScore);
+    }
+
+    
+
+    public void EndMiniGame()
+    {
+        PlayerPrefs.SetInt("LastMiniGameScore", currentScore); // 점수 저장
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene("MainMapScene");
     }
 }

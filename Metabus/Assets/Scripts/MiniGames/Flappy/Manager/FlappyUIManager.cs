@@ -7,6 +7,7 @@ using UnityEngine;
 public class FlappyUIManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI bestText;
     public TextMeshProUGUI restartText;
 
     public void Start()
@@ -23,9 +24,12 @@ public class FlappyUIManager : MonoBehaviour
         }
 
         restartText.gameObject.SetActive(false);
+
+        int score = PlayerPrefs.GetInt("LastMiniGameScore", 0);
+        bestText.text = $"Best Score: {score}";
     }
 
-    public void SetRestart()
+    public void ExitMiniGame()
     {
         restartText.gameObject.SetActive(true);
     }
