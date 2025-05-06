@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerController : BaseController
 {
-    private Camera camera;
+    //private Camera camera;
 
     protected override void Start()
     {
         base.Start();
-        camera = Camera.main;
+        //camera = Camera.main;
     }
 
     protected override void HandleAction()

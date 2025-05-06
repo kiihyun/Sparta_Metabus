@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowCamera : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
     public Transform target;      // 따라갈 대상 (플레이어)
     public float smoothSpeed = 5f; // 부드러운 이동 속도
