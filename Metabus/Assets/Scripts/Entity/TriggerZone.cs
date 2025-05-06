@@ -31,7 +31,8 @@ public class TriggerZone : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag(requiredTag))
+        if (other == null || !other.CompareTag(requiredTag)) return;
+        if (miniGameUIPrompt != null)
         {
             canStart = false;
             miniGameUIPrompt.SetActive(false);
