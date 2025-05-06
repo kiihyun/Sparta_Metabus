@@ -45,12 +45,6 @@ public class FlappyGameManager : MonoBehaviour
         
     }
 
-    public void AddScore(int score)
-    {
-        currentScore += score;
-        uiManager.UpdateScore(currentScore);
-        Debug.Log("Score: " + currentScore);
-    }
 
     
 
