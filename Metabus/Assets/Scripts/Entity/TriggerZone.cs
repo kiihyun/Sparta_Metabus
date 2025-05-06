@@ -1,24 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+public enum MiniGameType
+{
+    FlappyBird,
+    Stack,
+    // 나중에 더 추가 가능
+}
 public class TriggerZone : MonoBehaviour
 {
     public GameObject popupUI;
 
+    public string requiredTag = "Player";
+    public GameObject miniGameUIPrompt;
+    public MiniGameType miniGameType;
+
+    private bool canStart = false;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(requiredTag))
         {
-            popupUI.SetActive(true); // "스페이스바를 눌러 미니게임 시작" 같은 안내 표시
+            canStart = true;
+            miniGameUIPrompt.SetActive(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(requiredTag))
         {
-            popupUI.SetActive(false); // 팝업 숨김
+            canStart = false;
+            miniGameUIPrompt.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        if (canStart && Input.GetKeyDown(KeyCode.E))
+        {
+            StartMiniGame();
+        }
+    }
+    void StartMiniGame()
+    {
+        SceneManager.LoadScene("FlappyBirdScene");
     }
 }
