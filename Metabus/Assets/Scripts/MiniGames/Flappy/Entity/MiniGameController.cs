@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MiniGameController : MonoBehaviour
 {
@@ -13,6 +14,29 @@ public class MiniGameController : MonoBehaviour
 
     public static MiniGameController Instance { get; private set; }
 
+    public GameObject startPanel;       // 시작 UI
+    public Button startButton;
+
+    private bool gameStarted = false;
+
+    void Start()
+    {
+        startPanel.SetActive(true);
+        startButton.onClick.AddListener(OnStartButtonClicked);
+        Time.timeScale = 0f; // 시작 전 게임 멈춤
+    }
+
+    void OnStartButtonClicked()
+    {
+        startPanel.SetActive(false);
+        gameStarted = true;
+        Time.timeScale = 1f; // 게임 시작
+    }
+
+    public bool IsGameStarted()
+    {
+        return gameStarted;
+    }
     private void Awake()
     {
         if (Instance == null)
