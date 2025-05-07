@@ -23,10 +23,10 @@ public class FlappyUIManager : MonoBehaviour
             return;
         }
 
-        restartText.gameObject.SetActive(false);
+        restartText.gameObject.SetActive(true);
 
-        int score = PlayerPrefs.GetInt("LastMiniGameScore", 0);
-        bestText.text = $"Best Score: {score}";
+        //int score = PlayerPrefs.GetInt("LastMiniGameScore", 0);
+        //bestText.text = $"Best Score: {score}";
     }
 
     public void ExitMiniGame()

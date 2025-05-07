@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class FlappyGameManager : MonoBehaviour
 {
     static FlappyGameManager flappyGameManager;
+    public static bool isFirstLoading = true;
 
     public static FlappyGameManager Instance
     {
@@ -29,17 +30,28 @@ public class FlappyGameManager : MonoBehaviour
 
     private void Start()
     {
-        uiManager.UpdateScore(0);
+        // 첫 로딩이면 대기 상태로 유지 (타이틀 화면에서 버튼으로 시작하도록)
+        if (!isFirstLoading)
+        {
+            StartGame(); // 두 번째 이후 씬 로딩 시 자동 시작
+        }
+        else
+        {
+            isFirstLoading = false; // 첫 로딩 플래그 해제
+        }
+        //uiManager.UpdateScore(0);
+        //ScoreManager.Instance;
+        ScoreManager.Instance.ResetScore();
     }
 
-    public void GameOver()
-    {
-        Debug.Log("Game Over");
-        uiManager.ExitMiniGame();
-    }
+    //public void GameOver()
+    //{
+    //    Debug.Log("Game Over");
+    //    uiManager.ExitMiniGame();
+    //}
 
 
-    public void startGame()
+    public void StartGame()
     {
         SceneManager.LoadScene("MainMapScene");
         
@@ -48,11 +60,11 @@ public class FlappyGameManager : MonoBehaviour
 
     
 
-    public void EndMiniGame()
-    {
-        PlayerPrefs.SetInt("LastMiniGameScore", currentScore); // 점수 저장
-        PlayerPrefs.Save();
+    //public void EndMiniGame()
+    //{
+    //    PlayerPrefs.SetInt("LastMiniGameScore", currentScore); // 점수 저장
+    //    PlayerPrefs.Save();
 
-        SceneManager.LoadScene("MainMapScene");
-    }
+    //    SceneManager.LoadScene("MainMapScene");
+    //}
 }

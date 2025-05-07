@@ -40,7 +40,11 @@ public class Obstacle : MonoBehaviour
     {
         FlappyPlayerController player = other.GetComponent<FlappyPlayerController>();
         if (player != null)
+        {
             ScoreManager.Instance.AddScore(1);
+
+        Debug.Log("+++++++++++++++++");
+        }
     }
 
 }
