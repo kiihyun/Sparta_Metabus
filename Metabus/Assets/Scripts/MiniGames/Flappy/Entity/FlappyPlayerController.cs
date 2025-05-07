@@ -18,6 +18,8 @@ public class FlappyPlayerController : MonoBehaviour
 
     void Start()
     {
+        isDead = false;
+        deathCooldown = 0f;
         flappyGameManager = FlappyGameManager.Instance;
 
         animator = transform.GetComponentInChildren<Animator>();
@@ -36,13 +38,14 @@ public class FlappyPlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!MiniGameController.Instance.IsGameStarted()) return;
+
         if (isDead)
         {
             if (deathCooldown <= 0)
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    // 게임 재시작
                     flappyGameManager.StartGame();
                 }
             }
@@ -62,8 +65,8 @@ public class FlappyPlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (isDead)
-            return;
+        if (!MiniGameController.Instance.IsGameStarted()) return;
+        if (isDead) return;
 
         Vector3 velocity = _rigidbody.velocity;
         velocity.x = forwardSpeed;
@@ -80,6 +83,7 @@ public class FlappyPlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (godMode)
@@ -93,6 +97,8 @@ public class FlappyPlayerController : MonoBehaviour
         deathCooldown = 1f;
         //flappyGameManager.GameOver();
         //flappyGameManager.EndMiniGame();
+        if (!MiniGameController.Instance.IsGameStarted()) return;
+
         MiniGameController.Instance.EndMiniGame((ScoreManager.Instance.score>=10 ? true : false), ScoreManager.Instance.score);
 
     }

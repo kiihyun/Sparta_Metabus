@@ -21,10 +21,18 @@ public class MiniGameController : MonoBehaviour
 
     void Start()
     {
+        gameOver = false;
+        elapsedTime = 0f;
+        gameOverPanel.SetActive(false);
+
         startPanel.SetActive(true);
         startButton.onClick.AddListener(OnStartButtonClicked);
+
+        ScoreManager.Instance.ResetScore(); // 추가: 게임 시작 시 점수 리셋
+
         Time.timeScale = 0f; // 시작 전 게임 멈춤
     }
+
 
     void OnStartButtonClicked()
     {
@@ -40,16 +48,26 @@ public class MiniGameController : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+        }
         else
+        {
             Destroy(gameObject);
+        }
+
+        gameOver = false;
+        gameStarted = false;
+        Time.timeScale = 1f; // 혹시라도 이전 씬에서 안 돌아온 걸 방지
     }
+
 
     public void EndMiniGame(bool success, int finalScore)
     {
         if (gameOver) return;
         gameOver = true;
 
+        Time.timeScale = 1f;
         // 점수 저장
         ScoreManager.Instance.score = finalScore;
         ScoreManager.Instance.SaveHighScore();

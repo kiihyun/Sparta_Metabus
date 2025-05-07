@@ -18,5 +18,10 @@ public class PlayerController : BaseController
         float vertial = Input.GetAxisRaw("Vertical");
         movementDirection = new Vector2(horizontal, vertial).normalized;
 
+
+        if (Mathf.Abs(horizontal) > 0.01f)
+        {
+            lookDirection = new Vector2(horizontal, 0).normalized;
+        }
     }
 }
